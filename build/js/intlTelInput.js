@@ -780,31 +780,6 @@
             }, {
                 key: "_initKeyListeners",
                 value: function _initKeyListeners() {
-                    var _this5 = this;
-                    var userOverrideFormatting = false;
-                    // update flag on input event
-                    this._handleKeyEvent = function(e) {
-                        if (_this5._updateFlagFromNumber(_this5.telInput.value)) {
-                            _this5._triggerCountryChange();
-                        }
-                        // if user types their own formatting char (not a plus or a numeric), then set the override
-                        if (e && e.data && /[^+0-9]/.test(e.data)) {
-                            userOverrideFormatting = true;
-                        } else if (!/[^+0-9]/.test(_this5.telInput.value)) {
-                            userOverrideFormatting = false;
-                        }
-                        if (_this5.options.formatAsYouType && !userOverrideFormatting) {
-                            // maintain caret position after reformatting
-                            var currentCaretPos = _this5.telInput.selectionStart;
-                            var valueBeforeCaret = _this5.telInput.value.substring(0, currentCaretPos);
-                            var relevantCharsBeforeCaret = valueBeforeCaret.replace(/[^+0-9]/g, "").length;
-                            var isDeleteForwards = e && e.inputType === "deleteContentForward";
-                            var formattedValue = _this5._formatNumberAsYouType();
-                            var newCaretPos = _this5._translateCursorPosition(relevantCharsBeforeCaret, formattedValue, currentCaretPos, isDeleteForwards);
-                            _this5.telInput.value = formattedValue;
-                            _this5.telInput.setSelectionRange(newCaretPos, newCaretPos);
-                        }
-                    };
                     this.telInput.addEventListener("input", this._handleKeyEvent);
                     // update flag on cut/paste events (now supported in all major browsers)
                     this._handleClipboardEvent = function() {
